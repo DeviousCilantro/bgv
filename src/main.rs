@@ -16,7 +16,21 @@ fn generate_range(rng: &dyn SecureRandom, lower_bound: i32, upper_bound: i32) ->
 }
 
 fn poly_modulo(polynomial: Polynomial, modulus: Polynomial) -> Polynomial {
-    polynomial.clone() - ((polynomial / modulus.clone()) * modulus)
+    let n = modulus.degree();
+    let mut poly_coeff = Vec::new();
+    for i in 0..polynomial.degree() + 1 {
+        poly_coeff.push(polynomial[i]);
+    }
+    let mut poly = polynomial.clone();
+    for (m, coeff) in poly_coeff.iter().enumerate().rev() {
+        if m > (n - 1) {
+            let r = ((m % n) + n) % n;
+            poly[r] += coeff;
+            poly[m] = 0.0;
+        }
+    }
+
+    poly
 }
 
 fn coeff_modulo(coeff_vec: &mut Polynomial, modulus: f64) -> Polynomial {
