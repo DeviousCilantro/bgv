@@ -1,0 +1,12 @@
+[package]
+name = "bgv"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rug = "1.19.2"
+hex = "0.4.3"
+ring = "0.16.20"
+xxcalc = "0.2.1"
